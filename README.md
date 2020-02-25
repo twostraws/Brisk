@@ -78,7 +78,7 @@ try fm.createDirectory(atPath: "example", withIntermediateDirectories: true)
 fm.changeCurrentDirectoryPath("example")
 try fm.copyItem(atPath: NSHomeDirectory() + "/example.json", toPath: "example")
 
-let input = try String(contentsOfFile: "example")
+let input = try String(contentsOfFile: "example.json")
 let data = Data(input.utf8)
 let names = try JSONDecoder().decode([String].self, from: data)
 let output = "Result \(names.count)"
