@@ -53,6 +53,8 @@ brisk myscriptname
 
 That will create a new directory called `myscriptname`, copy in all the helper functions, then open it in Xcode ready for you to edit. Using Xcode means you get full code completion, and can run your script by pressing Cmd+R like usual.
 
+Using `swift run` from that directory, the script will run from the command line; if you use `swift build` you'll get a finished binary you can put anywhere.
+
 **Warning:** The `brisk` command is easily the most experimental part of this whole package, so please let me know how you get on with it. Ideally it should create open Xcode straight to an editing window saying `print("Hello, Brisk!")`, but let me know if you get something else.
 
 
