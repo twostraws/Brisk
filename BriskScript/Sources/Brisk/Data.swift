@@ -42,28 +42,14 @@ extension Data {
     }
 
     init(url: String) {
-        guard let parsedURL = URL(string: url) else {
+        guard let parsedURL = URL(string: url),
+            let loadedData = Data(request: URLRequest(url: parsedURL)) else {
             printOrDie("Bad URL: \(url)")
             self = Data()
             return
         }
 
-        let semaphore = DispatchSemaphore(value: 0)
-        var result = Data()
-
-        let task = URLSession.shared.dataTask(with: parsedURL) { data, _, error in
-            if let data = data {
-                result = data
-            } else {
-                printOrDie("Fetched failed for \(url) – \(error?.localizedDescription ?? "Unknown error")")
-            }
-
-            semaphore.signal()
-        }
-
-        task.resume()
-        semaphore.wait()
-        self = result
+        self = loadedData
     }
 
     init?(file: String) {
@@ -76,6 +62,28 @@ extension Data {
             } else {
                 return nil
             }
+        }
+    }
+    
+    init?(request:URLRequest) {
+        let semaphore = DispatchSemaphore(value: 0)
+        var result:Data? = nil
+
+        let task = URLSession.shared.dataTask(with: request) { data, _, error in
+            result = data
+            if let error = error {
+                printOrDie("Fetched failed for \(String(describing: request.url)) – \(error.localizedDescription )")
+            }
+
+            semaphore.signal()
+        }
+
+        task.resume()
+        semaphore.wait()
+        if let loadedData = result {
+            self = loadedData
+        } else {
+            return nil
         }
     }
 }
