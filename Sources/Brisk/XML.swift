@@ -8,21 +8,21 @@
 
 import Foundation
 
-enum XML {
-    class XMLNode {
-        let tag: String
-        var data: String
-        let attributes: [String: String]
-        var childNodes: [XMLNode]
+public enum XML {
+    public class XMLNode {
+        public let tag: String
+        public var data: String
+        public let attributes: [String: String]
+        public var childNodes: [XMLNode]
 
-        init(tag: String, data: String, attributes: [String: String], childNodes: [XMLNode] = []) {
+        public init(tag: String, data: String, attributes: [String: String], childNodes: [XMLNode] = []) {
             self.tag = tag
             self.data = data
             self.attributes = attributes
             self.childNodes = childNodes
         }
 
-        func getElementsByTagName(_ name: String) -> [XMLNode] {
+        public func getElementsByTagName(_ name: String) -> [XMLNode] {
             var results = [XMLNode]()
 
             for node in childNodes {
@@ -36,11 +36,11 @@ enum XML {
             return results
         }
 
-        func hasAttribute(_ name: String) -> Bool {
+        public func hasAttribute(_ name: String) -> Bool {
             attributes[name] != nil
         }
 
-        func getAttribute(_ name: String) -> String {
+        public func getAttribute(_ name: String) -> String {
             attributes[name, default: ""]
         }
     }
@@ -50,13 +50,13 @@ enum XML {
         private var stack = [XMLNode]()
         private var tree: XMLNode?
 
-        init(data: Data) {
+        public init(data: Data) {
             parser = XMLParser(data: data)
             super.init()
             parser.delegate = self
         }
 
-        func parse() -> XMLNode? {
+        public func parse() -> XMLNode? {
             parser.parse()
 
             guard parser.parserError == nil else {
@@ -66,16 +66,16 @@ enum XML {
             return tree
         }
 
-        func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String] = [:]) {
+        public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String] = [:]) {
             let node = XMLNode(tag: elementName, data: "", attributes: attributeDict, childNodes: [])
             stack.append(node)
         }
 
-        func parser(_ parser: XMLParser, foundCharacters string: String) {
+        public func parser(_ parser: XMLParser, foundCharacters string: String) {
             stack.last?.data = string
         }
 
-        func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        public func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
             let lastElement = stack.removeLast()
 
             if let last = stack.last {
@@ -87,18 +87,18 @@ enum XML {
     }
 }
 
-func parseXML(_ data: Data) -> XML.XMLNode? {
+public func parseXML(_ data: Data) -> XML.XMLNode? {
     let dom = XML.MicroDOM(data: data)
     return dom.parse()
 }
 
-func parseXML(_ string: String) -> XML.XMLNode? {
+public func parseXML(_ string: String) -> XML.XMLNode? {
     let data = Data(string.utf8)
     let dom = XML.MicroDOM(data: data)
     return dom.parse()
 }
 
-func parseXML(from file: String) -> XML.XMLNode? {
+public func parseXML(from file: String) -> XML.XMLNode? {
     guard let string = String(file: file) else { return nil }
     let data = Data(string.utf8)
     let dom = XML.MicroDOM(data: data)

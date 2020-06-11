@@ -8,12 +8,12 @@
 
 import Foundation
 
-var homeDir: String {
+public var homeDir: String {
     NSHomeDirectory()
 }
 
 @discardableResult
-func mkdir(_ directory: String, withIntermediates: Bool = true) -> Bool {
+public func mkdir(_ directory: String, withIntermediates: Bool = true) -> Bool {
     do {
         try FileManager.default.createDirectory(atPath: directory.expandingPath(), withIntermediateDirectories: withIntermediates)
         return true
@@ -23,7 +23,7 @@ func mkdir(_ directory: String, withIntermediates: Bool = true) -> Bool {
     }
 }
 
-func scandir(_ directory: String, recursively: Bool = false) -> [String] {
+public func scandir(_ directory: String, recursively: Bool = false) -> [String] {
     do {
         if recursively {
             let enumerator = FileManager.default.enumerator(atPath: directory.expandingPath())
@@ -37,7 +37,7 @@ func scandir(_ directory: String, recursively: Bool = false) -> [String] {
     }
 }
 
-func recurse(_ directory: String, predicate: (String) -> Bool, action: (String) throws -> Void) rethrows {
+public func recurse(_ directory: String, predicate: (String) -> Bool, action: (String) throws -> Void) rethrows {
     let enumerator = FileManager.default.enumerator(atPath: directory.expandingPath())
 
     while let file = enumerator?.nextObject() as? String {
@@ -47,7 +47,7 @@ func recurse(_ directory: String, predicate: (String) -> Bool, action: (String) 
     }
 }
 
-func recurse(_ directory: String, extensions: String..., action: (String) throws -> Void) rethrows {
+public func recurse(_ directory: String, extensions: String..., action: (String) throws -> Void) rethrows {
     let enumerator = FileManager.default.enumerator(atPath: directory.expandingPath())
 
     while let file = enumerator?.nextObject() as? String {
@@ -61,7 +61,7 @@ func recurse(_ directory: String, extensions: String..., action: (String) throws
     }
 }
 
-func isdir(_ name: String) -> Bool {
+public func isdir(_ name: String) -> Bool {
     var isDir: ObjCBool = false
 
     if FileManager.default.fileExists(atPath: name.expandingPath(), isDirectory: &isDir) {
@@ -74,16 +74,16 @@ func isdir(_ name: String) -> Bool {
 }
 
 @discardableResult
-func rmdir(_ file: String) -> Bool {
+public func rmdir(_ file: String) -> Bool {
     fileDelete(file)
 }
 
-func getcwd() -> String {
+public func getcwd() -> String {
     FileManager.default.currentDirectoryPath
 }
 
 @discardableResult
-func chdir(_ newDirectory: String) -> Bool {
+public func chdir(_ newDirectory: String) -> Bool {
     if FileManager.default.changeCurrentDirectoryPath(newDirectory.expandingPath()) {
         return true
     } else {

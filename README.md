@@ -32,8 +32,56 @@ We don’t replace any of Swift’s default functionality, which means if you wa
 
 So, it’s called Brisk: it’s fast like Swift, but with that little element of risk 🙂
 
-
 ## Installation
+
+### Use as a Swift Package Manager library
+
+1. Install and run XCode 11 on macOS 10.15 (Catalina) or higher
+
+2. In your Terminal, run these commands :
+
+   ```swift
+   mkdir myScriptName
+   cd myScriptName
+   swift package init --type executable
+   ```
+
+    Swift Package Manager (SPM) will create files and folders for your project.
+
+3. Open the `Package.swift` file that has been created by SPM,
+
+   XCode should launch automatically and open the project.
+
+4. Edit the `Package.swift` :
+
+   ```swift
+   let package = Package(
+    name: "myScriptName",
+    platforms: [
+    .macOS(.v10_15)
+    ],
+    dependencies: [
+    .package(path: "https://github.com/twostraws/Brisk"),
+    // Dependencies declare other packages that this package depends on.
+    // .package(url: /* package url */, from: "1.0.0"),
+    ],
+    targets: [
+    // Targets are the basic building blocks of a package. A target can define a module or a test suite.
+    // Targets can depend on other targets in this package, and on products in packages which this package depends on.
+    .target(
+    name: "myScriptName",
+    dependencies: ["Brisk"]),
+    .testTarget(
+    name: "myScriptNameTests",
+    dependencies: ["myScriptName"]),
+    ]
+   )
+   ```
+   Save the file and let XCode download and install Brisk for your project
+
+5. Add the `import Brisk` line in each Swift file where you need Brisk features
+
+### Use by embbeding Brisk code inside your project
 
 Run these two commands: 
 
@@ -693,8 +741,8 @@ Some suggestions you might want to explore, ordered by usefulness:
 - Write some tests.
 - Contribute example scripts.
 - Add more helper functions.
- 
- 
+
+
 ## What now?
 
 This is a proof of concept scripting library for Swift developers. I don’t think it’s perfect, but I do at least hope it gives you some things to think about.
@@ -705,7 +753,7 @@ Some tips:
 2. Stay away from macOS protected directories, such as your Desktop, Documents, and Photos.
 3. If you intend to keep scripts around for a long period of time, you can easily “upgrade” your code from Brisk’s helpers up to Foundation calls; nothing is overridden.
 4. The code is open source. Even if you end up not using Brisk at all, you’re welcome to read the code, learn from it, take it for your own projects, and so on.
- 
+
 
 ## Credits
 

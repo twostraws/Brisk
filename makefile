@@ -6,7 +6,7 @@ install:
 	@mkdir ~/.brisk
 
 	@# Copy our entire template into the hidden folder
-	@cp -R BriskScript ~/.brisk/BriskScript
+	@cp -R . ~/.brisk/Brisk
 
 	@# Place our script creator in a sensible place
 	@install brisk.sh /usr/local/bin/brisk

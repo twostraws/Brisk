@@ -9,7 +9,7 @@
 import Foundation
 
 extension Sequence where Element: Hashable {
-    func unique() -> [Element] {
+    public func unique() -> [Element] {
         var checked = Set<Element>()
         var result = [Element]()
 
@@ -25,7 +25,7 @@ extension Sequence where Element: Hashable {
 }
 
 extension Sequence where Element: Equatable {
-    func indexes(of searchItem: Element) -> [Int] {
+    public func indexes(of searchItem: Element) -> [Int] {
         var returnValue = [Int]()
 
         for (index, item) in self.enumerated() {
@@ -39,15 +39,15 @@ extension Sequence where Element: Equatable {
 }
 
 extension Sequence {
-    func any(match predicate: (Element) throws -> Bool) rethrows -> Bool {
+    public func any(match predicate: (Element) throws -> Bool) rethrows -> Bool {
         try contains(where: predicate)
     }
 
-    func none(match predicate: (Element) throws -> Bool) rethrows -> Bool {
+    public func none(match predicate: (Element) throws -> Bool) rethrows -> Bool {
         try !contains(where: predicate)
     }
 
-    func random(_ num: Int) -> [Element] {
+    public func random(_ num: Int) -> [Element] {
         Array(shuffled().prefix(num))
     }
 }

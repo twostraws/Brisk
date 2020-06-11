@@ -9,11 +9,11 @@
 import Foundation
 
 extension Date {
-    static func unixTime() -> Int {
+    public static func unixTime() -> Int {
         Int(Date().timeIntervalSince1970)
     }
 
-    func string(using format: String) -> String {
+    public func string(using format: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         return dateFormatter.string(from: Date())

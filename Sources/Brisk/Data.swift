@@ -10,27 +10,27 @@ import Foundation
 import CryptoKit
 
 extension Data {
-    func md5() -> String {
+    public func md5() -> String {
         let hashed = Insecure.MD5.hash(data: self)
         return hashed.compactMap { String(format: "%02x", $0) }.joined()
     }
 
-    func sha1() -> String {
+    public func sha1() -> String {
         let hashed = Insecure.SHA1.hash(data: self)
         return hashed.compactMap { String(format: "%02x", $0) }.joined()
     }
 
-    func sha256() -> String {
+    public func sha256() -> String {
         let hashed = SHA256.hash(data: self)
         return hashed.compactMap { String(format: "%02x", $0) }.joined()
     }
 
-    func base64() -> Data {
+    public func base64() -> Data {
         base64EncodedData()
     }
 
     @discardableResult
-    func write(to file: String) -> Bool {
+    public func write(to file: String) -> Bool {
         do {
             let url = URL(fileURLWithPath: file.expandingPath())
             try self.write(to: url, options: .atomic)
@@ -41,7 +41,7 @@ extension Data {
         }
     }
 
-    init(url: String) {
+    public init(url: String) {
         guard let parsedURL = URL(string: url),
             let loadedData = Data(request: URLRequest(url: parsedURL)) else {
             printOrDie("Bad URL: \(url)")
@@ -52,7 +52,7 @@ extension Data {
         self = loadedData
     }
 
-    init?(file: String) {
+    public init?(file: String) {
         do {
             let contents = try String(contentsOfFile: file.expandingPath())
             self = Data(contents.utf8)
@@ -65,7 +65,7 @@ extension Data {
         }
     }
     
-    init?(request:URLRequest) {
+    public init?(request:URLRequest) {
         let semaphore = DispatchSemaphore(value: 0)
         var result:Data? = nil
 
