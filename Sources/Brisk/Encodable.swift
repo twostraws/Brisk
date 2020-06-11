@@ -9,7 +9,7 @@
 import Foundation
 
 extension Encodable {
-    func jsonData(keys: JSONEncoder.KeyEncodingStrategy = .useDefaultKeys, dates: JSONEncoder.DateEncodingStrategy = .deferredToDate) -> Data {
+    public func jsonData(keys: JSONEncoder.KeyEncodingStrategy = .useDefaultKeys, dates: JSONEncoder.DateEncodingStrategy = .deferredToDate) -> Data {
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = keys
         encoder.dateEncodingStrategy = dates
@@ -22,7 +22,7 @@ extension Encodable {
         }
     }
 
-    func jsonString(keys: JSONEncoder.KeyEncodingStrategy = .useDefaultKeys, dates: JSONEncoder.DateEncodingStrategy = .deferredToDate) -> String {
+    public func jsonString(keys: JSONEncoder.KeyEncodingStrategy = .useDefaultKeys, dates: JSONEncoder.DateEncodingStrategy = .deferredToDate) -> String {
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = keys
         encoder.dateEncodingStrategy = dates

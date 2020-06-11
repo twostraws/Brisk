@@ -13,7 +13,7 @@ if [ -e "$1" ]
 fi
 
 # Copy in our template project
-cp -R ~/.brisk/BriskScript "$1"
+cp -R ~/.brisk/Brisk "$1"
 cd "$1"
 
 # Update Xcode's user data so that it opens the new main.swift file

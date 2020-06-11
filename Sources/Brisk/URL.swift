@@ -15,11 +15,11 @@ extension URL {
      - Parameter rhs: The string to append
      - Returns: A new URL combining the two
      */
-    static func +(lhs: URL, rhs: String) -> URL {
+    static public func +(lhs: URL, rhs: String) -> URL {
         return lhs.appendingPathComponent(rhs)
     }
 
-    static func +=(lhs: inout URL, rhs: String) {
+    static public func +=(lhs: inout URL, rhs: String) {
         lhs.appendPathComponent(rhs)
     }
 }

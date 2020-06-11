@@ -12,11 +12,11 @@ import Foundation
 import Cocoa
 #endif
 
-enum Brisk {
-    static var haltOnError = false
+public enum Brisk {
+    public static var haltOnError = false
 }
 
-func printOrDie(_ message: String) {
+public func printOrDie(_ message: String) {
     if Brisk.haltOnError {
         fatalError(message)
     } else {
@@ -24,7 +24,7 @@ func printOrDie(_ message: String) {
     }
 }
 
-func exit(_ message: String = "", code: Int = 0) -> Never {
+public func exit(_ message: String = "", code: Int = 0) -> Never {
     if message.isEmpty == false {
         print(message)
     }
@@ -33,7 +33,7 @@ func exit(_ message: String = "", code: Int = 0) -> Never {
 }
 
 #if canImport(Cocoa)
-func open(_ thing: String) {
+public func open(_ thing: String) {
     NSWorkspace.shared.openFile(thing)
 }
 #endif

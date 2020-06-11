@@ -8,7 +8,7 @@
 
 import Foundation
 
-func decode<T: Decodable>(string input: String, as type: T.Type, keys: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys, dates: JSONDecoder.DateDecodingStrategy = .deferredToDate) -> T {
+public func decode<T: Decodable>(string input: String, as type: T.Type, keys: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys, dates: JSONDecoder.DateDecodingStrategy = .deferredToDate) -> T {
     let decoder = JSONDecoder()
     decoder.keyDecodingStrategy = keys
     decoder.dateDecodingStrategy = dates
@@ -22,7 +22,7 @@ func decode<T: Decodable>(string input: String, as type: T.Type, keys: JSONDecod
     }
 }
 
-func decode<T: Decodable>(file: String, as type: T.Type, keys: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys, dates: JSONDecoder.DateDecodingStrategy = .deferredToDate) -> T {
+public func decode<T: Decodable>(file: String, as type: T.Type, keys: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys, dates: JSONDecoder.DateDecodingStrategy = .deferredToDate) -> T {
     let decoder = JSONDecoder()
     decoder.keyDecodingStrategy = keys
     decoder.dateDecodingStrategy = dates
@@ -39,7 +39,7 @@ func decode<T: Decodable>(file: String, as type: T.Type, keys: JSONDecoder.KeyDe
 }
 
 extension Decodable {
-    init(url: String, keys: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys, dates: JSONDecoder.DateDecodingStrategy = .deferredToDate) {
+    public init(url: String, keys: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys, dates: JSONDecoder.DateDecodingStrategy = .deferredToDate) {
         let data = Data(url: url)
 
         let decoder = JSONDecoder()

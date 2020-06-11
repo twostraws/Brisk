@@ -9,7 +9,7 @@
 import Foundation
 
 @discardableResult
-func fileCreate(_ file: String, contents: Data? = nil) -> Bool {
+public func fileCreate(_ file: String, contents: Data? = nil) -> Bool {
     if FileManager.default.createFile(atPath: file.expandingPath(), contents: contents) {
         return true
     } else {
@@ -19,7 +19,7 @@ func fileCreate(_ file: String, contents: Data? = nil) -> Bool {
 }
 
 @discardableResult
-func fileDelete(_ file: String) -> Bool {
+public func fileDelete(_ file: String) -> Bool {
     do {
         try FileManager.default.removeItem(atPath: file.expandingPath())
         return true
@@ -29,11 +29,11 @@ func fileDelete(_ file: String) -> Bool {
     }
 }
 
-func fileExists(_ name: String) -> Bool {
+public func fileExists(_ name: String) -> Bool {
     FileManager.default.fileExists(atPath: name.expandingPath())
 }
 
-func fileProperties(_ file: String) -> [FileAttributeKey: Any] {
+public func fileProperties(_ file: String) -> [FileAttributeKey: Any] {
     do {
         return try FileManager.default.attributesOfItem(atPath: file.expandingPath())
     } catch {
@@ -42,7 +42,7 @@ func fileProperties(_ file: String) -> [FileAttributeKey: Any] {
     }
 }
 
-func fileSize(_ file: String) -> UInt64 {
+public func fileSize(_ file: String) -> UInt64 {
     do {
         let attr = try FileManager.default.attributesOfItem(atPath: file.expandingPath())
         if let fileSize = attr[.size] as? UInt64 {
@@ -57,7 +57,7 @@ func fileSize(_ file: String) -> UInt64 {
     }
 }
 
-func fileCreation(_ file: String) -> Date {
+public func fileCreation(_ file: String) -> Date {
     do {
         let attr = try FileManager.default.attributesOfItem(atPath: file.expandingPath())
         if let date = attr[.creationDate] as? Date {
@@ -72,7 +72,7 @@ func fileCreation(_ file: String) -> Date {
     }
 }
 
-func fileModified(_ file: String) -> Date {
+public func fileModified(_ file: String) -> Date {
     do {
         let attr = try FileManager.default.attributesOfItem(atPath: file.expandingPath())
         if let date = attr[.modificationDate] as? Date {
@@ -87,16 +87,16 @@ func fileModified(_ file: String) -> Date {
     }
 }
 
-func tempFile() -> String {
+public func tempFile() -> String {
     NSTemporaryDirectory() + UUID().uuidString
 }
 
-func basename(of file: String) -> String {
+public func basename(of file: String) -> String {
     URL(fileURLWithPath: file).lastPathComponent
 }
 
 @discardableResult
-func fileCopy(_ from: String, to: String) -> Bool {
+public func fileCopy(_ from: String, to: String) -> Bool {
     let fromPath = from.expandingPath()
     var toPath = to.expandingPath()
 

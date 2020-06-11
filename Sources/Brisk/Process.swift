@@ -8,22 +8,22 @@
 
 import Foundation
 
-func getpid() -> Int {
+public func getpid() -> Int {
     Int(ProcessInfo.processInfo.processIdentifier)
 }
 
-func getHostName() -> String {
+public func getHostName() -> String {
     ProcessInfo.processInfo.hostName
 }
 
-func getUserName() -> String {
+public func getUserName() -> String {
     ProcessInfo.processInfo.userName
 }
 
-func getenv(_ key: String) -> String {
+public func getenv(_ key: String) -> String {
     ProcessInfo.processInfo.environment[key, default: ""]
 }
 
-func setenv(_ key: String, _ value: String) {
+public func setenv(_ key: String, _ value: String) {
     setenv(key, value, 1)
 }
