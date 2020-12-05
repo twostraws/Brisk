@@ -113,6 +113,19 @@ extension String {
         self = self.replacingOccurrences(of: regex, with: replacement, options: options.union([.regularExpression]))
     }
 
+	func getCapturedGroupsFrom(regexPattern: String)-> [String]? {
+		let text = self
+		let regex = try? NSRegularExpression(pattern: regexPattern)
+		let match = regex?.firstMatch(in: text, range: NSRange(text.startIndex..., in: text))
+
+		if let match = match {
+			return (0..<match.numberOfRanges).compactMap {
+				$0 > 0 ? String(text[Range(match.range(at: $0), in: text)!]) : nil
+			}
+		}
+		return nil
+	}
+
     /**
      Lets you read one character from this string using its integer index
      */
