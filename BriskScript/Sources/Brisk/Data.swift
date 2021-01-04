@@ -65,9 +65,9 @@ extension Data {
         }
     }
     
-    init?(request:URLRequest) {
+    init?(request: URLRequest) {
         let semaphore = DispatchSemaphore(value: 0)
-        var result:Data? = nil
+        var result: Data? = nil
 
         let task = URLSession.shared.dataTask(with: request) { data, _, error in
             result = data

@@ -60,7 +60,7 @@ extension String {
     }
 
     /**
-     Replaces occurences of one string with another, up to `count` times.
+     Replaces occurrences of one string with another, up to `count` times.
      - Parameter of: The string to look for.
      - Parameter with: The string to replace.
      - Parameter count: The maximum number of replacements
@@ -104,6 +104,19 @@ extension String {
             return false
         }
     }
+
+	func captureGroups(from regexPattern: String) -> [String]? {
+		let text = self
+		let regex = try? NSRegularExpression(pattern: regexPattern)
+		let match = regex?.firstMatch(in: text, range: NSRange(text.startIndex..., in: text))
+
+		if let match = match {
+			return (0..<match.numberOfRanges).compactMap {
+				$0 > 0 ? String(text[Range(match.range(at: $0), in: text)!]) : nil
+			}
+		}
+		return nil
+	}
 
     func replacing(regex: String, with replacement: String, options: NSString.CompareOptions) -> String {
         self.replacingOccurrences(of: regex, with: replacement, options: options.union([.regularExpression]))

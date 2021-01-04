@@ -51,13 +51,13 @@ func **<I: BinaryInteger>(lhs: I, rhs: I) -> I {
 }
 
 func **<I: BinaryInteger, F: BinaryFloatingPoint>(lhs: I, rhs: F) -> F {
-    return F(pow(Double(lhs),Double(rhs)))
+    return F(pow(Double(lhs), Double(rhs)))
 }
 
 func **<I: BinaryInteger, F: BinaryFloatingPoint>(lhs: F, rhs: I) -> F {
-    return F(pow(Double(lhs),Double(rhs)))
+    return F(pow(Double(lhs), Double(rhs)))
 }
 
 func **<F: BinaryFloatingPoint>(lhs: F, rhs: F) -> F {
-    return F(pow(Double(lhs),Double(rhs)))
+    return F(pow(Double(lhs), Double(rhs)))
 }
