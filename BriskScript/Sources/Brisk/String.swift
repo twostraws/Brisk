@@ -60,7 +60,7 @@ extension String {
     }
 
     /**
-     Replaces occurences of one string with another, up to `count` times.
+     Replaces occurrences of one string with another, up to `count` times.
      - Parameter of: The string to look for.
      - Parameter with: The string to replace.
      - Parameter count: The maximum number of replacements
@@ -105,15 +105,7 @@ extension String {
         }
     }
 
-    func replacing(regex: String, with replacement: String, options: NSString.CompareOptions) -> String {
-        self.replacingOccurrences(of: regex, with: replacement, options: options.union([.regularExpression]))
-    }
-
-    mutating func replace(regex: String, with replacement: String, options: NSString.CompareOptions) {
-        self = self.replacingOccurrences(of: regex, with: replacement, options: options.union([.regularExpression]))
-    }
-
-	func getCapturedGroupsFrom(regexPattern: String)-> [String]? {
+	func captureGroups(from regexPattern: String) -> [String]? {
 		let text = self
 		let regex = try? NSRegularExpression(pattern: regexPattern)
 		let match = regex?.firstMatch(in: text, range: NSRange(text.startIndex..., in: text))
@@ -125,6 +117,14 @@ extension String {
 		}
 		return nil
 	}
+
+    func replacing(regex: String, with replacement: String, options: NSString.CompareOptions) -> String {
+        self.replacingOccurrences(of: regex, with: replacement, options: options.union([.regularExpression]))
+    }
+
+    mutating func replace(regex: String, with replacement: String, options: NSString.CompareOptions) {
+        self = self.replacingOccurrences(of: regex, with: replacement, options: options.union([.regularExpression]))
+    }
 
     /**
      Lets you read one character from this string using its integer index
